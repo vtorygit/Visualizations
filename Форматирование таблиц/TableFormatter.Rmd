@@ -1,0 +1,85 @@
+---
+title: "---"
+output:
+  html_document:
+mainfont: Times New Roman
+---
+
+<style>
+   table {
+       font-family: "Times New Roman";
+ }
+</style>
+
+```{r, echo = FALSE}
+#install.packages("data.table")
+#install.packages("dplyr")
+#install.packages("formattable")
+#install.packages("tidyr")
+```
+
+```{r, echo = FALSE}
+#Load the libraries
+library(data.table)
+library(dplyr)
+library(formattable)
+library(tidyr)
+library("htmltools")
+```
+
+```{r}
+#Set color variables
+
+#freq_rank
+fycol1 = "#5bb5de"
+fycol2 = "#137070"
+
+#aagr_rank
+rcol1 = "#a82b5d"
+rcol2 = "#0e51b5"
+
+#agg_rank
+start = "#aab5e2"
+end = "#404763"
+
+#aggr
+mgreen = "#085e52"
+mred = "#5e082b"
+
+```
+
+
+```{r}
+mydata <- read.csv2(file ="/home/tory/Desktop/somefilename.csv", header = TRUE, sep = ";", dec = ".")
+head(mydata)
+attach(mydata)
+```
+
+
+
+```{r}
+aagr_formater <- formatter("span", 
+                                  style = x ~ style(font.weight = "bold", 
+                                                     color = ifelse(x > 0, mgreen, ifelse(x < 0, mred, "black"))), 
+                                   x ~ icontext(ifelse(x>0, "arrow-up", "arrow-down"), x)
+                                   )
+
+formattable(mydata, align = c("l","l", "r", "r", "r", "r", "r"), list(
+  `term` = formatter("span", style = ~ style(color = "grey",font.weight = "bold")),
+  `translate` = formatter("span", style = ~ style(color = "grey",font.weight = "bold")),
+  `agg_rank`= color_tile(start, end),
+  `aagr` = aagr_formater,
+  `freq_rank`= color_tile(fycol1, fycol2),
+  `aagr_rank`= color_tile(rcol1, rcol2)
+))
+
+
+#export_formattable(mytab,"mytab.png")
+```
+
+
+
+
+
+
+

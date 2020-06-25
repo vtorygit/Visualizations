@@ -1,0 +1,85 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Bokeh Plot</title>
+      
+      
+        
+          
+        <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.css" type="text/css" />
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="d7fd02bf-6431-4889-a207-7995710af927" data-root-id="1093"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="1174">
+          {"0a105f96-35d1-4b2e-9baf-8ffffba455d6":{"roots":{"references":[{"attributes":{},"id":"1102","type":"CategoricalTicker"},{"attributes":{"high":5.05079658277534e-05,"low":9.964669557248354e-06,"palette":["#fffcad","#fffa85","#fff400","#f9e200","#f0da00","#f0ce00","#f0c200"]},"id":"1088","type":"LinearColorMapper"},{"attributes":{"fill_color":{"field":"Val_by_pop","transform":{"id":"1088","type":"LinearColorMapper"}},"line_alpha":{"value":0.9},"line_color":{"value":"#FFFFFF"},"line_width":{"value":0},"size":{"field":"size_","units":"screen"},"x":{"field":"Country"},"y":{"field":"Year"}},"id":"1114","type":"Scatter"},{"attributes":{"callback":null,"factors":["2015","2014","2013","2012","2011","2010","2009","2008","2007","2006","2005","2004","2003","2002","2001","2000","1999","1998","1997"]},"id":"1091","type":"FactorRange"},{"attributes":{"plot":{"id":"1093","subtype":"Figure","type":"Plot"},"ticker":{"id":"1102","type":"CategoricalTicker"}},"id":"1104","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"line_width":{"value":0},"size":{"field":"size_","units":"screen"},"x":{"field":"Country"},"y":{"field":"Year"}},"id":"1115","type":"Scatter"},{"attributes":{"axis_label":"Year","axis_label_text_font_size":{"value":"20pt"},"formatter":{"id":"1119","type":"CategoricalTickFormatter"},"major_label_text_font_size":{"value":"13pt"},"plot":{"id":"1093","subtype":"Figure","type":"Plot"},"ticker":{"id":"1106","type":"CategoricalTicker"}},"id":"1105","type":"CategoricalAxis"},{"attributes":{"data_source":{"id":"1112","type":"ColumnDataSource"},"glyph":{"id":"1114","type":"Scatter"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1115","type":"Scatter"},"selection_glyph":null,"view":{"id":"1117","type":"CDSView"}},"id":"1116","type":"GlyphRenderer"},{"attributes":{},"id":"1106","type":"CategoricalTicker"},{"attributes":{"background_fill_color":{"value":"#000000"},"below":[{"id":"1101","type":"CategoricalAxis"}],"left":[{"id":"1105","type":"CategoricalAxis"}],"plot_height":900,"plot_width":1200,"renderers":[{"id":"1101","type":"CategoricalAxis"},{"id":"1104","type":"Grid"},{"id":"1105","type":"CategoricalAxis"},{"id":"1108","type":"Grid"},{"id":"1116","type":"GlyphRenderer"}],"title":{"id":"1092","type":"Title"},"toolbar":{"id":"1110","type":"Toolbar"},"toolbar_location":null,"x_range":{"id":"1090","type":"FactorRange"},"x_scale":{"id":"1097","type":"CategoricalScale"},"y_range":{"id":"1091","type":"FactorRange"},"y_scale":{"id":"1099","type":"CategoricalScale"}},"id":"1093","subtype":"Figure","type":"Plot"},{"attributes":{"source":{"id":"1112","type":"ColumnDataSource"}},"id":"1117","type":"CDSView"},{"attributes":{"callback":null,"data":{"Country":["Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Denmark","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Iceland","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Norway","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden","Sweden"],"Sex":["F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F"],"Sum of selected ages_x":{"__ndarray__":"dNFFF130TkAAAAAAADBQQAAAAAAAAFJAAAAAAADAU0AlSZIkSbJRQKuqqqqq6lNAvLu7u7v7UUBP7MRO7ARVQO/u7u7u7lVAYid2Yie2W0DEw8PDw8NVQAAAAAAAOFlAkiRJkiRpXUAAAAAAABhaQAAAAAAAgFlAAAAAAACwWkAAAAAAAExcQLdt27Zt215A2Ymd2ImdYUCrqqqqqqogQFVVVVVVVSlAAAAAAAAALEAAAAAAAAAkQKuqqqqqqiRAAAAAAAAAIkBVVVVVVVUhQKuqqqqqqiBAAAAAAAAAI0AAAAAAAAAmQFVVVVVVVStAAAAAAAAAJUAAAAAAAAAfQFVVVVVVVSVAq6qqqqqqJkAAAAAAAAAeQFVVVVVVVSlAAAAAAAAALkAAAAAAAIAmQEYXXXTRRUlAZmZmZmamTECxEzuxEztGQEYXXXTRxUpAq6qqqqqqSkAXXXTRRRdPQJqZmZmZeVNAmpmZmZk5VEAzMzMzM/NXQLrooosu+lZAmpmZmZlZWUDNzMzMzGxcQJqZmZmZOV1AchzHcRxHYUBddNFFF91cQAAAAAAAQGJARhdddNFFYEBmZmZmZjZjQGIndmInFmFAAAAAAABgWkA7sRM7sfNjQMVO7MRObGhAAAAAAADgZEAAAAAAACBlQAAAAAAAqGdA7+7u7u5OZUDv7u7u7u5nQA8PDw8PD2ZAkiRJkiQ5akAAAAAAAKppQG7btm3b1mxA4uHh4eFBZ0BJkiRJklRtQIqd2Imd6HBAbtu2bds+cUDNzMzMzCxwQAAAAAAAUHFA5DiO4zjOa0A=","dtype":"float64","shape":[76]},"Sum of selected ages_y":{"__ndarray__":"velND/VOUkG96U0P9U5SQb3pTQ/1TlJBAAAAAEBcVEEAAACAkm1UQQAAAMBLgFRBAAAAgOmMVEEAAABAlppUQQAAAIAKqVRBAAAAwDG7VEEAAADAgdFUQQAAAIBf8FRBAAAAQBQOVUEAAADA4iVVQQAAAABiPFVBAAAAQCNQVUEAAAAAVGVVQQAAAMCJg1VBAAAAAEOpVUEAAAAA4ogQQQAAAAAIthBBAAAAAADrEEEAAAAACCkRQQAAAAD4ZRFBAAAAAByNEUEAAAAA4KcRQQAAAACs2xFBAAAAAOAOEkEAAAAAOJMSQQAAAACQARNBAAAAAOx9E0EAAAAAOHwTQQAAAAByaRNBAAAAAK54E0EAAAAATpMTQQAAAADiwhNBAAAAAH77E0EAAAAAEDEUQb3pTQ/1TlJBvelND/VOUkEAAACAVwVRQQAAAIA3DVFBAAAAQPc3UUEAAAAAzU9RQQAAAGDfaVFBAAAA4FSEUUEAAACA+aJRQQAAAKByx1FBAAAA4Mn2UUEAAABgdjBSQQAAACCPa1JBAAAAwKqmUkEAAACAAeVSQQAAAID0JFNBAAAAgBphU0EAAADgBplTQQAAACBDzFNBvelND/VOUkG96U0P9U5SQQAAAGA45WBBAAAAwCzsYEEAAADgz/dgQQAAAIDkBWFBAAAAkCMWYUEAAAAwYCdhQQAAAHD5OGFBAAAA0NdRYUEAAABg2HJhQQAAAHDHlWFBAAAAEEu8YUEAAACAKuNhQQAAAHDgBWJBAAAAoCIoYkEAAAAgsE9iQQAAAKBufmJBAAAAoG5+YkE=","dtype":"float64","shape":[76]},"Val_by_pop":{"__ndarray__":"+QbtZzcN6z6DbCbnAEvsPg5X9gb/de8+zrZYt2wK7z6v8WGWlbjrPhQAARJyFu8+j5KSf60A7D75r8Njk1LwPi0Gd5th/PA+bqCm6CRj9T5up2AIMLrwPtkGvGsyRfM+CSfEf4FZ9j4/sRNt6L3zPsL5x2x4NvM+8G6bHeEI9D7Vnbd4Iin1Pm1vQTfe8vY+Xlq6ye0F+j76VoT8sCAAP2gnmX9hQQg/VY7IfRB7Cj/eh5C60KUCP5d0+a5zAQM/vK89g7xoAD93qevxZWr/PlDHgLJ13f0+AsHTx6TVAD8FyKOIO/MCP5Nvg1SZAgc/SYaT+uk8AT+uW3WYhnT5Pr7KIadulQE/E7V3iiegAj+O+bR0Q4X4PrggE2zyggQ/zysyBWoFCD+PNOxKQ9QBP9VwB2sRFuY+nfoSfqMJ6T6iyXHBveXkPsvgyhUfH+k+Oaiki4XH6D6Pt7ZcMbzsPnyshnvj5PE+i9POsjt58j53TQG8Prr1Pl55dHOSrfQ+Fr0reBaU9j5DLnGj8gD5PmowIxqfYvk+En4o89Ok/T7idl00HnH4Pr3nvJBMgf4+KfHX5Mne+j7zHXJK9V7/PojlCfUWnvs+VrNSu6sM9z400f67r28BP9DoYYz1IPc+3vHIAKq88z5sydoGeuvzPjXFWcUOPPY+LpHx3hH08z5jvsu/0VL2Pkguu7YyfvQ+K+pEFaA5+D6X5MMXjIj3PqWYFYxiPfo+y9dw8UL79D7AAUTsTzz6PmAyz8KDBf4+7HSMQ91k/j5oXZFESET8PvATLm+z9P0+cLF4y1YO+D4=","dtype":"float64","shape":[76]},"Year":["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015"],"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75],"size_":{"__ndarray__":"+ofYqmbMSUDUIHFod/tKQJ7Ff6rjAE5AtlYKFk2aTUAhgF6I1G9KQDd8M+HDpU1ATaT9dZW0SkB8FqEvACJPQKBO54XwMlBAV4jvHoFlVEBZmnrtn+dPQPhcxsmpYFJAyuz8A3RQVUC1G6Y8yNNSQCzmnXCeUlJAmE/gz0cbU0BB/OejLi5UQGgj6vO14lVAVvy1eU/RWEAFSyOT2sJeQBnrUx+6IWdA3dc0BgVBaUDT/StDqshhQDReCncOIGJAWIAyz0RMX0Cpouog1PVdQBTYr1JHe1xAve2hGf8NYECtUZvyfhJiQNQoHYK28WVAvNi7k3twYEDjSz2spEZYQP6123rmxGBAbJGJNUTDYUBO57gId2JXQOBtGXmxj2NAz4zcz4noZkBQq9/80QBhQJckdrQjEEVAidEnL7XgR0AvqA8r6e1DQMluJAEy9UdAfpPgV6ehR0CmME+DaWdLQFa7uQGtEFFAtkbS8iWeUUAErgP8kbhUQA9Ao/5XuFNAYJayPVKIVUAC3OZla9hXQBg3SYORNVhA28mQMUVFXEB0ciiyQE9XQHFnuCiHF11AOQCCwh+gWUCYPHMl6+pdQCrkxxyQVlpAjyqxdlH7VUA7T+Uz56BgQKsPVayqDlZAyqKnkJjSUkC/frFrPf9SQJZQLYZeNFVAWJgBW28HU0AdKk2QE0pVQG8aTBUqi1NA4qzIrlQaV0BsDVq6dHFWQIdIYI8yBllAjIGJI28CVEA7C26oLAVZQCfhNFx6oVxAMV9/E2n8XEB4MYR7DvVaQHyNM29xkVxAGKYjvgzxVkA=","dtype":"float64","shape":[76]}},"selected":{"id":"1123","type":"Selection"},"selection_policy":{"id":"1124","type":"UnionRenderers"}},"id":"1112","type":"ColumnDataSource"},{"attributes":{"dimension":1,"plot":{"id":"1093","subtype":"Figure","type":"Plot"},"ticker":{"id":"1106","type":"CategoricalTicker"}},"id":"1108","type":"Grid"},{"attributes":{},"id":"1119","type":"CategoricalTickFormatter"},{"attributes":{"plot":null,"text":"Female mortality from mental disorders (Northern countries)","text_font_size":{"value":"25pt"}},"id":"1092","type":"Title"},{"attributes":{},"id":"1121","type":"CategoricalTickFormatter"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1109","type":"HoverTool"}]},"id":"1110","type":"Toolbar"},{"attributes":{},"id":"1123","type":"Selection"},{"attributes":{"callback":null},"id":"1109","type":"HoverTool"},{"attributes":{"callback":null,"factors":["Denmark","Iceland","Norway","Sweden"]},"id":"1090","type":"FactorRange"},{"attributes":{},"id":"1097","type":"CategoricalScale"},{"attributes":{},"id":"1124","type":"UnionRenderers"},{"attributes":{},"id":"1099","type":"CategoricalScale"},{"attributes":{"axis_label":"Country","axis_label_text_font_size":{"value":"20pt"},"formatter":{"id":"1121","type":"CategoricalTickFormatter"},"major_label_text_font_size":{"value":"13pt"},"plot":{"id":"1093","subtype":"Figure","type":"Plot"},"ticker":{"id":"1102","type":"CategoricalTicker"}},"id":"1101","type":"CategoricalAxis"}],"root_ids":["1093"]},"title":"Bokeh Application","version":"1.0.4"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('1174').textContent;
+                  var render_items = [{"docid":"0a105f96-35d1-4b2e-9baf-8ffffba455d6","roots":{"1093":"d7fd02bf-6431-4889-a207-7995710af927"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        embed_document(root);
+                        clearInterval(timer);
+                      }
+                      attempts++;
+                      if (attempts > 100) {
+                        console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        clearInterval(timer);
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
