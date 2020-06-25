@@ -1,0 +1,387 @@
+---
+title: "City cluster"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(magrittr)
+```
+
+
+
+```{r include=FALSE}
+economic_data <- read.csv("economic_data.csv") %>%
+data.frame()
+
+pca_data <- economic_data[-c(1,2, 18)]
+
+names(pca_data)
+
+```
+
+
+
+
+```{r PCA}
+pca_stats <- pca_data %>%
+  prcomp(scale = T)
+summary(pca_stats)
+#12 component explain 99,122 % of variance
+
+
+```
+
+
+```{r}
+round_df <- function(df, digits = 3) {
+  nums <- vapply(df, is.numeric, FUN.VALUE = logical(1))
+  
+  df[,nums] <- round(df[,nums], digits = digits)
+  
+  (df)
+}
+```
+
+```{r}
+library("GPArotation")
+
+fact4_model <- as.formula("~city_pop + cntr_pop + city_pop_density +  GDP+ commodities  + trande_tourism +
+  manufacturing+  local_nonmarket + business_finance + transportation+
+construction+   utilities+from_sea+ average_temp+ HHI")   
+
+FA4 <- factanal(fact4_model, factors=4, data=pca_data,
+                  #rotation = "geominQ",
+                  na.action=na.exclude)
+FA4
+#not really distinctive factors
+```
+
+
+
+
+
+```{r Factor anlysis}
+
+
+fact5_model <- as.formula("~city_pop + cntr_pop + city_pop_density +  GDP+ commodities  + trande_tourism +
+  manufacturing+  local_nonmarket + business_finance + transportation+
+construction+   utilities+from_sea+ average_temp+ HHI")   
+
+FA5 <- factanal(fact5_model, factors=5, data=pca_data,
+                  #rotation = "geominQ",
+                  na.action=na.exclude)
+FA5
+
+# f1 city_pop (0,901), GDP (0,961), transportation (0,434), local_nonmarket (-0,326) -->
+# f2 manufacturing (0,944), business_finance (-0,839), transportation (0,418), HHI (0,590) -->
+# f3 cntr_pop (0,541), local_nonmarket (-0,839), construction (-0,407) -->
+# f4 trande_tourism (0,842), business_finance (-0,446), utilities (0,387) -->
+# f5 commodities (0,407), transportation (0,691) -->
+
+
+
+```
+
+
+```{r}
+fact6_model <- as.formula("~city_pop + cntr_pop + city_pop_density +  GDP+ commodities  + trande_tourism +
+  manufacturing+  local_nonmarket + business_finance + transportation+
+construction+   utilities+from_sea+ average_temp+ HHI")   
+
+FA6 <- factanal(fact6_model, factors=6, data=pca_data,
+                  #rotation = "geominQ",
+                  na.action=na.exclude)
+FA6
+```
+
+```{r}
+# f1 manufacturing (0,913), business_finance (-0,892), transportation (0,498), HHI (0,654) -->
+# f2 city_pop (0,949), GDP (0,931), transportation (0,500) --> 
+# f3 cntr_pop (0,488), local_nonmarket (-0,796), construction (-0,448) -->
+# f4 from_sea (-0,539), average_temp (0,929) --> geophysics
+# f5 trande_tourism (0,86), utilities (0,413) --> ??
+# f6 commodities (0,468), local_nonmarket (-0,258) --> buy commodities instead of local prosuction
+
+six_fact_model <- as.list.data.frame(FA6)
+six_fact_model_loadings <- six_fact_model$loadings
+
+# factor 1 is          six_fact_model_loadings[, 1] till 6-th
+
+normal_loadings <- as.data.frame(six_fact_model_loadings[, 1:6])
+write.csv2(normal_loadings, "normal_loadings.csv")
+normal_loadings_rus <- read.csv2("normal_loadings_rus.csv")
+format(normal_loadings_rus, digits = 3)
+
+
+
+
+round_df(normal_loadings_rus)
+
+library(formattable)
+
+fycol1 = "#FF4040"
+fycol2 = "#FFE4E1"
+
+#c("#FF4040", "#FFE4E1")
+
+#FORMATTING
+
+aagr_formater <- formatter("span", 
+                                  style = x ~ style(color = ifelse(x > 0.4, "firebrick", ifelse(x < -0.4, "blue", "gray"))))
+
+formattable(round_df(normal_loadings_rus), align = c("r","c", "c", "c", "c", "c", "c"), list(
+  `Factor1` = aagr_formater,
+  `Factor2` = aagr_formater,
+  `Factor3` = aagr_formater,
+  `Factor4` = aagr_formater,
+  `Factor5` = aagr_formater,
+  `Factor6` = aagr_formater
+))
+
+```
+
+```{r}
+chi.diff <- FA5$STATISTIC - FA6$STATISTIC
+df.diff <- FA6$dof - FA6$dof
+1 - pchisq(chi.diff, df.diff)
+```
+
+```{r}
+beauty_stats <- read.csv("stats.csv")
+
+aagr_formater <- formatter("span")
+
+formattable(round_df(beauty_stats), align = c("c","c", "c", "c", "c", "c", "c"), list(
+  `Factor1` = aagr_formater,
+  `Factor2` = aagr_formater,
+  `Factor3` = aagr_formater,
+  `Factor4` = aagr_formater,
+  `Factor5` = aagr_formater,
+  `Factor6` = aagr_formater
+))
+
+
+```
+
+
+
+
+
+
+
+```{r Kmeans}
+
+economic_data_12dim_scaled <- scale(na.omit(economic_data_12dim))
+
+clusters <-lapply(1:6, function(x) kmeans(economic_data_12dim_scaled[, 2:13], centers=x, nstart=1000))
+
+
+sss <- c(
+    clusters[[1]]$tot.withinss,
+    clusters[[2]]$tot.withinss,
+    clusters[[3]]$tot.withinss,
+    clusters[[4]]$tot.withinss,
+    clusters[[5]]$tot.withinss,
+    clusters[[6]]$tot.withinss
+    )
+
+plot(sss, type="b")
+
+
+ cluster.sizes <- list(
+    clusters[[1]]$size,
+    clusters[[2]]$size,
+    clusters[[3]]$size,
+    clusters[[4]]$size,
+    clusters[[5]]$size,
+    clusters[[6]]$size
+    )
+
+cluster.sizes 
+
+
+explained.variance <- c(
+    clusters[[1]]$betweenss/clusters[[1]]$totss,
+    clusters[[2]]$betweenss/clusters[[2]]$totss,
+    clusters[[3]]$betweenss/clusters[[3]]$totss,
+    clusters[[4]]$betweenss/clusters[[4]]$totss,
+    clusters[[5]]$betweenss/clusters[[5]]$totss,
+    clusters[[6]]$betweenss/clusters[[6]]$totss
+    )
+
+
+
+
+round(explained.variance, 2) 
+
+plot(explained.variance, type="b")
+
+```
+
+
+```{r}
+
+m6 <- as.data.frame(cbind(economic_data_12dim_scaled, cluster=clusters[[6]]$cluster))
+aov.output <- aov(F12 ~ as.factor(cluster), m6) 
+summary(aov.output) # differences arfe not statistically significant for some variables
+
+# For example, for F12 variable means for all the clusters are the same
+```
+
+
+```{r}
+TukeyHSD(aov.output)
+```
+
+```{r}
+m5 <- as.data.frame(cbind(economic_data_12dim_scaled, cluster=clusters[[5]]$cluster))
+aov.output_5 <- aov(F12 ~ as.factor(cluster), m5) 
+summary(aov.output_5) # differences arfe not statistically significant for some variables
+
+
+
+```
+
+```{r}
+TukeyHSD(aov.output_5)
+```
+
+
+
+
+
+```{r}
+
+#have 3 analytical categories
+
+#really bad model
+#cluster centers are unseparable
+
+m3 <- as.data.frame(cbind(economic_data_12dim_scaled, cluster=clusters[[3]]$cluster))
+aov.output_3 <- aov(F12 ~ as.factor(cluster), m3) 
+summary(aov.output_3) # differences arfe not statistically significant for some variables
+```
+
+```{r}
+TukeyHSD(aov.output_3)
+```
+
+```{r}
+kmeans6 <- clusters[[6]]$cluster
+write.csv(kmeans6, 'kmeans6.csv')
+```
+
+```{r}
+kmeans5 <- clusters[[5]]$cluster
+write.csv(kmeans5, 'kmeans5.csv')
+kmeans3 <- clusters[[3]]$cluster
+write.csv(kmeans3, 'kmeans3.csv')
+
+```
+
+
+```{r}
+# Gain cluster centers
+
+centers3 <- clusters[[3]]$centers
+write_csv2(data.frame(centers3), 'centers3.csv')
+centers5 <- clusters[[5]]$centers
+write_csv2(data.frame(centers5), 'centers5.csv')
+centers6 <- clusters[[6]]$centers
+write_csv2(data.frame(centers6), 'centers6.csv')
+
+```
+
+
+# On 6-dim reduced space
+
+
+```{r}
+economic_data_6dim <- read.csv("economic_data_6dim.csv")
+
+economic_data_6dim_scaled <- scale(na.omit(economic_data_6dim))
+
+clusters_6dim <-lapply(1:6, function(x) kmeans(economic_data_6dim_scaled[, 2:7], centers=x, nstart=1000))
+
+
+sss_6dim <- c(
+    clusters_6dim[[1]]$tot.withinss,
+    clusters_6dim[[2]]$tot.withinss,
+    clusters_6dim[[3]]$tot.withinss,
+    clusters_6dim[[4]]$tot.withinss,
+    clusters_6dim[[5]]$tot.withinss,
+    clusters_6dim[[6]]$tot.withinss
+    )
+
+plot(sss_6dim, type="b")
+
+
+ cluster.sizes_6dim <- list(
+    clusters_6dim[[1]]$size,
+    clusters_6dim[[2]]$size,
+    clusters_6dim[[3]]$size,
+    clusters_6dim[[4]]$size,
+    clusters_6dim[[5]]$size,
+    clusters_6dim[[6]]$size
+    )
+
+cluster.sizes_6dim
+
+
+explained.variance_6dim <- c(
+    clusters_6dim[[1]]$betweenss/clusters_6dim[[1]]$totss,
+    clusters_6dim[[2]]$betweenss/clusters_6dim[[2]]$totss,
+    clusters_6dim[[3]]$betweenss/clusters_6dim[[3]]$totss,
+    clusters_6dim[[4]]$betweenss/clusters_6dim[[4]]$totss,
+    clusters_6dim[[5]]$betweenss/clusters_6dim[[5]]$totss,
+    clusters_6dim[[6]]$betweenss/clusters_6dim[[6]]$totss
+    )
+
+
+
+
+round(explained.variance_6dim, 2) 
+
+plot(explained.variance_6dim, type="b")
+
+```
+
+
+```{r}
+
+clusters_6dim[[3]]$centers
+clusters_6dim[[5]]$centers
+clusters_6dim[[6]]$centers
+```
+
+```{r}
+
+write.csv2(data.frame(clusters_6dim[[3]]$cluster), 'centers3_6dim.csv')
+write.csv2(data.frame(clusters_6dim[[4]]$cluster), 'centers4_6dim.csv')
+write.csv2(data.frame(clusters_6dim[[5]]$cluster), 'centers5_6dim.csv')
+write.csv2(data.frame(clusters_6dim[[6]]$cluster), 'centers6_6dim.csv')
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
